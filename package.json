@@ -1,6 +1,6 @@
 {
     "name": "cs-datatable",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A plugin that creates a server-side datatable from Laravel pagination data",
     "author": "Mark Andrew Kato <markandrewkato@gmail.com>",
     "homepage": "http://github.com/markandrewkato/",
