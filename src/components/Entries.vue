@@ -14,7 +14,9 @@
             },
             options: {
                 type: Array,
-                default: [10, 20, 50, 100, 150, 200]
+                default: function () {
+                    return [10, 20, 50, 100, 150, 200]
+                }
             }
         },
         data () {
