@@ -1,26 +1,30 @@
 <template>
-    <div>
-        <span class="label">Show Entries:</span>
-        <div>
-            <select class="h-10 outline-none rounded bg-gray-200"
-                    v-model="total"
-                    @change.prevent="changeTotalEntries">
-                <option v-for="i in [10, 20, 50, 100, 150, 200]" :value="i" :key="i" v-text="i"></option>
-            </select>
-        </div>
-    </div>
+    <select v-model="amount"
+            @change.prevent="changeTotalEntries">
+    <option v-for="i in options" :value="i" :key="i" v-text="i"></option>
+</select>
 </template>
 
 <script>
     export default {
+        props: {
+            total: {
+                type: Number,
+                default: 10
+            },
+            options: {
+                type: Array,
+                default: [10, 20, 50, 100, 150, 200]
+            }
+        },
         data () {
             return {
-                total: 10
+                amount: this.total
             }
         },
         methods: {
             changeTotalEntries () {
-                window.DatatableEventBus.$emit('change-entries', this.total);
+                window.DatatableEventBus.$emit('change-entries', this.amount);
             },
         }
     }
