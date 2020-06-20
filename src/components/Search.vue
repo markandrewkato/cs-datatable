@@ -11,6 +11,7 @@
 
 <script>
     export default {
+        props: ['sendListener'],
         data () {
             return {
                 query: ''
@@ -18,7 +19,8 @@
         },
         methods: {
             search () {
-                window.DatatableEventBus.$emit('search', this.query);
+                if (this.sendListener)
+                    window.DatatableEventBus.$emit('search-' + this.sendListener, this.query);
             }
         }
     }

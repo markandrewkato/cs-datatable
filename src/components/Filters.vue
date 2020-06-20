@@ -6,9 +6,11 @@
 
 <script>
     export default {
+        props: ['sendListener']
         methods: {
             onFilter (filters) {
-                window.DatatableEventBus.$emit('filter-listener', filters)
+                if (this.sendListener)
+                    window.DatatableEventBus.$emit('filter-listener-' + this.sendListener, filters)
             }
         }
     }

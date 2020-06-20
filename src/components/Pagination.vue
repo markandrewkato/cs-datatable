@@ -25,13 +25,15 @@
 
 <script>
     export default {
+        props: ['id', 'sendListener'],
         data () {
             return {
                 pagination: null
             }
         },
         mounted () {
-            window.DatatableEventBus.$on('pagination', data => this.pagination = data)
+            if (this.id)
+                window.DatatableEventBus.$on('pagination-' + this.id, data => this.pagination = data)
         },
         computed: {
             isFirstPage () {
@@ -43,10 +45,12 @@
         },
         methods: {
             move (point) {
-                window.DatatableEventBus.$emit('move-to', this.pagination[point + '_page_url']);
+                if (this.sendListener)
+                    window.DatatableEventBus.$emit('move-to-' + this.sendListener, this.pagination[point + '_page_url']);
             },
             page (number) {
-                window.DatatableEventBus.$emit('set-page', number);
+                if (this.sendListener)
+                    window.DatatableEventBus.$emit('set-page-' + this.sendListener, number);
             },
             generateBeforeCurrentPageNumbers (total = 2) {
                 let pages = [];

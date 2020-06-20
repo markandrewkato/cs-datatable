@@ -8,6 +8,7 @@
 <script>
     export default {
         props: {
+            sendListener: String
             total: {
                 type: Number,
                 default: 10
@@ -26,7 +27,8 @@
         },
         methods: {
             changeTotalEntries () {
-                window.DatatableEventBus.$emit('change-entries', this.amount);
+                if (this.sendListener)
+                    window.DatatableEventBus.$emit('change-entries-' + this.sendListener, this.amount);
             },
         }
     }

@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: ['url'],
+        props: ['url', 'id', 'paginationId'],
         data () {
             return {
                 items: [],
@@ -24,35 +24,37 @@
             }
         },
         created () {
-            window.DatatableEventBus.$on('filter-listener', data => {
-                this.filters = data;
-                this.page = null;
-                this.search = null;
-                this.fetch(this.url);
-            });
+            if (this.id) {
+                window.DatatableEventBus.$on('filter-listener-' + this.id, data => {
+                    this.filters = data;
+                    this.page = null;
+                    this.search = null;
+                    this.fetch(this.url);
+                });
 
-            window.DatatableEventBus.$on('change-entries', data => {
-                this.page = null;
-                this.total = data;
-                this.fetch(this.url);
-            });
+                window.DatatableEventBus.$on('change-entries-' + this.id, data => {
+                    this.page = null;
+                    this.total = data;
+                    this.fetch(this.url);
+                });
 
-            window.DatatableEventBus.$on('search', data => {
-                this.page = null;
-                this.search = data;
-                this.filters = null;
-                this.fetch(this.url);
-            });
+                window.DatatableEventBus.$on('search-' + this.id, data => {
+                    this.page = null;
+                    this.search = data;
+                    this.filters = null;
+                    this.fetch(this.url);
+                });
 
-            window.DatatableEventBus.$on('move-to', data => {
-                this.page = null;
-                this.fetch(data);
-            });
+                window.DatatableEventBus.$on('move-to-' + this.id, data => {
+                    this.page = null;
+                    this.fetch(data);
+                });
 
-            window.DatatableEventBus.$on('set-page', data => {
-                this.page = data;
-                this.fetch(this.url)
-            });
+                window.DatatableEventBus.$on('set-page-' + this.id, data => {
+                    this.page = data;
+                    this.fetch(this.url)
+                });
+            }
         },
         mounted () {
             this.fetch(this.url)
@@ -73,8 +75,10 @@
                     this.items = response.data;
                     this.page = response.current_page;
 
-                    delete response.data;
-                    window.DatatableEventBus.$emit('pagination', response)
+                    if (this.paginationId) {
+                        delete response.data;
+                        window.DatatableEventBus.$emit('pagination-' + this.paginationId, response)
+                    }
                 })
             }
         }
