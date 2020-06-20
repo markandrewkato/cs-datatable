@@ -19,10 +19,18 @@
                 items: [],
                 page: 1,
                 search: '',
-                total: 10
+                total: 10,
+                filters: null
             }
         },
         created () {
+            window.DatatableEventBus.$on('filter-listener', data => {
+                this.filters = data;
+                this.page = null;
+                this.search = null;
+                this.fetch(this.url);
+            });
+
             window.DatatableEventBus.$on('change-entries', data => {
                 this.page = null;
                 this.total = data;
@@ -32,6 +40,7 @@
             window.DatatableEventBus.$on('search', data => {
                 this.page = null;
                 this.search = data;
+                this.filters = null;
                 this.fetch(this.url);
             });
 
@@ -56,7 +65,8 @@
                     params: {
                         page: this.page,
                         search: this.search,
-                        total: this.total
+                        total: this.total,
+                        filters: this.filters
                     }
                 }).then(res => {
                     let response = res.data;
