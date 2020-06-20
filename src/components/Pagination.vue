@@ -4,21 +4,21 @@
             <p>Showing {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} Entries</p>
         </div>
         <div class="pagination">
-            <a class="mx-2" href="#" v-if="!isFirstPage" @click.prevent="move('first')">First</a>
-            <a class="mx-2" href="#" v-if="!isFirstPage" @click.prevent="move('prev')">Prev</a>
-            <a class="mx-2" href="#"
+            <a href="#" v-if="!isFirstPage" @click.prevent="move('first')">First</a>
+            <a href="#" v-if="!isFirstPage" @click.prevent="move('prev')">Prev</a>
+            <a href="#"
                @click.prevent="page(i)"
                v-for="i in generateBeforeCurrentPageNumbers()"
                :key="i"
                v-text="i"></a>
-            <span class="mx-2 text-gray-800" v-text="pagination.current_page"></span>
-            <a class="mx-2" href="#"
+            <span class="current" v-text="pagination.current_page"></span>
+            <a href="#"
                @click.prevent="page(i)"
                v-for="i in generateAfterCurrentPageNumbers()"
                :key="i"
                v-text="i"></a>
-            <a class="mx-2" href="#" v-if="!isLastPage" @click.prevent="move('next')">Next</a>
-            <a class="mx-2" href="#" v-if="!isLastPage" @click.prevent="move('last')">Last</a>
+            <a href="#" v-if="!isLastPage" @click.prevent="move('next')">Next</a>
+            <a href="#" v-if="!isLastPage" @click.prevent="move('last')">Last</a>
         </div>
     </div>
 </template>
