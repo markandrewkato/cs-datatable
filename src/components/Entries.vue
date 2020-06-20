@@ -8,7 +8,7 @@
 <script>
     export default {
         props: {
-            sendListener: String
+            sendListener: String,
             total: {
                 type: Number,
                 default: 10

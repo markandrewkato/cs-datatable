@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        props: ['sendListener']
+        props: ['sendListener'],
         methods: {
             onFilter (filters) {
                 if (this.sendListener)
